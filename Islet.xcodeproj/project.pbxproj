@@ -1,0 +1,733 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA000001000000000000001 /* IsletApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000001000000000000001 /* IsletApp.swift */; };
+		AA000002000000000000001 /* IslandWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000002000000000000001 /* IslandWindowController.swift */; };
+		AA000003000000000000001 /* IslandViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000003000000000000001 /* IslandViewModel.swift */; };
+		AA000004000000000000001 /* IslandMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000004000000000000001 /* IslandMode.swift */; };
+		AA000005000000000000001 /* ClipboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000005000000000000001 /* ClipboardItem.swift */; };
+		AA000006000000000000001 /* SystemConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000006000000000000001 /* SystemConfig.swift */; };
+		AA000007000000000000001 /* NowPlayingMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000007000000000000001 /* NowPlayingMonitor.swift */; };
+		AA000008000000000000001 /* VolumeMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000008000000000000001 /* VolumeMonitor.swift */; };
+		AA000009000000000000001 /* WeatherMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000009000000000000001 /* WeatherMonitor.swift */; };
+		AA000010000000000000001 /* NotificationMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000010000000000000001 /* NotificationMonitor.swift */; };
+		AA000011000000000000001 /* SystemStatsMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000011000000000000001 /* SystemStatsMonitor.swift */; };
+		AA000012000000000000001 /* ANEMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000012000000000000001 /* ANEMonitor.swift */; };
+		AA000013000000000000001 /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000013000000000000001 /* NetworkMonitor.swift */; };
+		AA000014000000000000001 /* BatteryMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000014000000000000001 /* BatteryMonitor.swift */; };
+		AA000015000000000000001 /* ClipboardMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000015000000000000001 /* ClipboardMonitor.swift */; };
+		AA000016000000000000001 /* TrashMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000016000000000000001 /* TrashMonitor.swift */; };
+		AA000017000000000000001 /* AppUsageMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000017000000000000001 /* AppUsageMonitor.swift */; };
+		AA000018000000000000001 /* AVSessionMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000018000000000000001 /* AVSessionMonitor.swift */; };
+		AA000019000000000000001 /* FFTMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000019000000000000001 /* FFTMonitor.swift */; };
+		AA000020000000000000001 /* AirDropMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000020000000000000001 /* AirDropMonitor.swift */; };
+		AA000021000000000000001 /* BuildMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000021000000000000001 /* BuildMonitor.swift */; };
+		AA000022000000000000001 /* EnvConfigMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000022000000000000001 /* EnvConfigMonitor.swift */; };
+		AA000023000000000000001 /* IslandView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000023000000000000001 /* IslandView.swift */; };
+		AA000024000000000000001 /* CollapsedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000024000000000000001 /* CollapsedView.swift */; };
+		AA000025000000000000001 /* NowPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000025000000000000001 /* NowPlayingView.swift */; };
+		AA000026000000000000001 /* VolumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000026000000000000001 /* VolumeView.swift */; };
+		AA000027000000000000001 /* WeatherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000027000000000000001 /* WeatherView.swift */; };
+		AA000028000000000000001 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000028000000000000001 /* NotificationView.swift */; };
+		AA000029000000000000001 /* SystemStatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000029000000000000001 /* SystemStatsView.swift */; };
+		AA000030000000000000001 /* ANEView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000030000000000000001 /* ANEView.swift */; };
+		AA000031000000000000001 /* NetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000031000000000000001 /* NetworkView.swift */; };
+		AA000032000000000000001 /* BatteryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000032000000000000001 /* BatteryView.swift */; };
+		AA000033000000000000001 /* ClipboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000033000000000000001 /* ClipboardView.swift */; };
+		AA000034000000000000001 /* TrashRecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000034000000000000001 /* TrashRecoveryView.swift */; };
+		AA000035000000000000001 /* ColorSamplerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000035000000000000001 /* ColorSamplerView.swift */; };
+		AA000036000000000000001 /* AppSwitcherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000036000000000000001 /* AppSwitcherView.swift */; };
+		AA000037000000000000001 /* AVConferenceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000037000000000000001 /* AVConferenceView.swift */; };
+		AA000038000000000000001 /* FFTView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000038000000000000001 /* FFTView.swift */; };
+		AA000039000000000000001 /* AirDropView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000039000000000000001 /* AirDropView.swift */; };
+		AA000040000000000000001 /* BuildStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000040000000000000001 /* BuildStatusView.swift */; };
+		AA000041000000000000001 /* StdoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000041000000000000001 /* StdoutView.swift */; };
+		AA000042000000000000001 /* EnvToggleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000042000000000000001 /* EnvToggleView.swift */; };
+		AA000043000000000000001 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000043000000000000001 /* SettingsView.swift */; };
+		AA000044000000000000001 /* SMCHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000044000000000000001 /* SMCHelper.swift */; };
+		AA000045000000000000001 /* MediaRemoteBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000045000000000000001 /* MediaRemoteBridge.swift */; };
+		AA000046000000000000001 /* IOKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000046000000000000001 /* IOKitHelper.swift */; };
+		AA000047000000000000001 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000047000000000000001 /* Extensions.swift */; };
+		AA000048000000000000001 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB000048000000000000001 /* Info.plist */; };
+		AA000049000000000000001 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000049000000000000001 /* main.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		BB000001000000000000001 /* IsletApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IsletApp.swift; sourceTree = "<group>"; };
+		BB000002000000000000001 /* IslandWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IslandWindowController.swift; sourceTree = "<group>"; };
+		BB000003000000000000001 /* IslandViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IslandViewModel.swift; sourceTree = "<group>"; };
+		BB000004000000000000001 /* IslandMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IslandMode.swift; sourceTree = "<group>"; };
+		BB000005000000000000001 /* ClipboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardItem.swift; sourceTree = "<group>"; };
+		BB000006000000000000001 /* SystemConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemConfig.swift; sourceTree = "<group>"; };
+		BB000007000000000000001 /* NowPlayingMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingMonitor.swift; sourceTree = "<group>"; };
+		BB000008000000000000001 /* VolumeMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeMonitor.swift; sourceTree = "<group>"; };
+		BB000009000000000000001 /* WeatherMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherMonitor.swift; sourceTree = "<group>"; };
+		BB000010000000000000001 /* NotificationMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationMonitor.swift; sourceTree = "<group>"; };
+		BB000011000000000000001 /* SystemStatsMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemStatsMonitor.swift; sourceTree = "<group>"; };
+		BB000012000000000000001 /* ANEMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANEMonitor.swift; sourceTree = "<group>"; };
+		BB000013000000000000001 /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		BB000014000000000000001 /* BatteryMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryMonitor.swift; sourceTree = "<group>"; };
+		BB000015000000000000001 /* ClipboardMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardMonitor.swift; sourceTree = "<group>"; };
+		BB000016000000000000001 /* TrashMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrashMonitor.swift; sourceTree = "<group>"; };
+		BB000017000000000000001 /* AppUsageMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUsageMonitor.swift; sourceTree = "<group>"; };
+		BB000018000000000000001 /* AVSessionMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVSessionMonitor.swift; sourceTree = "<group>"; };
+		BB000019000000000000001 /* FFTMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFTMonitor.swift; sourceTree = "<group>"; };
+		BB000020000000000000001 /* AirDropMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirDropMonitor.swift; sourceTree = "<group>"; };
+		BB000021000000000000001 /* BuildMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildMonitor.swift; sourceTree = "<group>"; };
+		BB000022000000000000001 /* EnvConfigMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvConfigMonitor.swift; sourceTree = "<group>"; };
+		BB000023000000000000001 /* IslandView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IslandView.swift; sourceTree = "<group>"; };
+		BB000024000000000000001 /* CollapsedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollapsedView.swift; sourceTree = "<group>"; };
+		BB000025000000000000001 /* NowPlayingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingView.swift; sourceTree = "<group>"; };
+		BB000026000000000000001 /* VolumeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeView.swift; sourceTree = "<group>"; };
+		BB000027000000000000001 /* WeatherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherView.swift; sourceTree = "<group>"; };
+		BB000028000000000000001 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		BB000029000000000000001 /* SystemStatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemStatsView.swift; sourceTree = "<group>"; };
+		BB000030000000000000001 /* ANEView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ANEView.swift; sourceTree = "<group>"; };
+		BB000031000000000000001 /* NetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkView.swift; sourceTree = "<group>"; };
+		BB000032000000000000001 /* BatteryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryView.swift; sourceTree = "<group>"; };
+		BB000033000000000000001 /* ClipboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardView.swift; sourceTree = "<group>"; };
+		BB000034000000000000001 /* TrashRecoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrashRecoveryView.swift; sourceTree = "<group>"; };
+		BB000035000000000000001 /* ColorSamplerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSamplerView.swift; sourceTree = "<group>"; };
+		BB000036000000000000001 /* AppSwitcherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSwitcherView.swift; sourceTree = "<group>"; };
+		BB000037000000000000001 /* AVConferenceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVConferenceView.swift; sourceTree = "<group>"; };
+		BB000038000000000000001 /* FFTView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FFTView.swift; sourceTree = "<group>"; };
+		BB000039000000000000001 /* AirDropView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirDropView.swift; sourceTree = "<group>"; };
+		BB000040000000000000001 /* BuildStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildStatusView.swift; sourceTree = "<group>"; };
+		BB000041000000000000001 /* StdoutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StdoutView.swift; sourceTree = "<group>"; };
+		BB000042000000000000001 /* EnvToggleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnvToggleView.swift; sourceTree = "<group>"; };
+		BB000043000000000000001 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		BB000044000000000000001 /* SMCHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMCHelper.swift; sourceTree = "<group>"; };
+		BB000045000000000000001 /* MediaRemoteBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaRemoteBridge.swift; sourceTree = "<group>"; };
+		BB000046000000000000001 /* IOKitHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IOKitHelper.swift; sourceTree = "<group>"; };
+		BB000047000000000000001 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		BB000048000000000000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BB000049000000000000001 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		BB000050000000000000001 /* Islet.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Islet.entitlements; sourceTree = "<group>"; };
+		CC000001000000000000001 /* Islet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Islet.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CC000002000000000000001 /* island-notify */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "island-notify"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DD000001000000000000001 /* Frameworks (Islet) */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DD000002000000000000001 /* Frameworks (island-notify) */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EE000001000000000000001 /* root */ = {
+			isa = PBXGroup;
+			children = (
+				EE000002000000000000001 /* Islet */,
+				EE000010000000000000001 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EE000002000000000000001 /* Islet */ = {
+			isa = PBXGroup;
+			children = (
+				BB000001000000000000001 /* IsletApp.swift */,
+				BB000002000000000000001 /* IslandWindowController.swift */,
+				BB000003000000000000001 /* IslandViewModel.swift */,
+				BB000048000000000000001 /* Info.plist */,
+				BB000050000000000000001 /* Islet.entitlements */,
+				EE000003000000000000001 /* Models */,
+				EE000004000000000000001 /* Monitors */,
+				EE000005000000000000001 /* Views */,
+				EE000006000000000000001 /* Helpers */,
+				EE000007000000000000001 /* CLI */,
+			);
+			name = Islet;
+			path = Islet;
+			sourceTree = "<group>";
+		};
+		EE000003000000000000001 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BB000004000000000000001 /* IslandMode.swift */,
+				BB000005000000000000001 /* ClipboardItem.swift */,
+				BB000006000000000000001 /* SystemConfig.swift */,
+			);
+			name = Models;
+			path = Models;
+			sourceTree = "<group>";
+		};
+		EE000004000000000000001 /* Monitors */ = {
+			isa = PBXGroup;
+			children = (
+				BB000007000000000000001 /* NowPlayingMonitor.swift */,
+				BB000008000000000000001 /* VolumeMonitor.swift */,
+				BB000009000000000000001 /* WeatherMonitor.swift */,
+				BB000010000000000000001 /* NotificationMonitor.swift */,
+				BB000011000000000000001 /* SystemStatsMonitor.swift */,
+				BB000012000000000000001 /* ANEMonitor.swift */,
+				BB000013000000000000001 /* NetworkMonitor.swift */,
+				BB000014000000000000001 /* BatteryMonitor.swift */,
+				BB000015000000000000001 /* ClipboardMonitor.swift */,
+				BB000016000000000000001 /* TrashMonitor.swift */,
+				BB000017000000000000001 /* AppUsageMonitor.swift */,
+				BB000018000000000000001 /* AVSessionMonitor.swift */,
+				BB000019000000000000001 /* FFTMonitor.swift */,
+				BB000020000000000000001 /* AirDropMonitor.swift */,
+				BB000021000000000000001 /* BuildMonitor.swift */,
+				BB000022000000000000001 /* EnvConfigMonitor.swift */,
+			);
+			name = Monitors;
+			path = Monitors;
+			sourceTree = "<group>";
+		};
+		EE000005000000000000001 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BB000023000000000000001 /* IslandView.swift */,
+				BB000024000000000000001 /* CollapsedView.swift */,
+				BB000025000000000000001 /* NowPlayingView.swift */,
+				BB000026000000000000001 /* VolumeView.swift */,
+				BB000027000000000000001 /* WeatherView.swift */,
+				BB000028000000000000001 /* NotificationView.swift */,
+				BB000029000000000000001 /* SystemStatsView.swift */,
+				BB000030000000000000001 /* ANEView.swift */,
+				BB000031000000000000001 /* NetworkView.swift */,
+				BB000032000000000000001 /* BatteryView.swift */,
+				BB000033000000000000001 /* ClipboardView.swift */,
+				BB000034000000000000001 /* TrashRecoveryView.swift */,
+				BB000035000000000000001 /* ColorSamplerView.swift */,
+				BB000036000000000000001 /* AppSwitcherView.swift */,
+				BB000037000000000000001 /* AVConferenceView.swift */,
+				BB000038000000000000001 /* FFTView.swift */,
+				BB000039000000000000001 /* AirDropView.swift */,
+				BB000040000000000000001 /* BuildStatusView.swift */,
+				BB000041000000000000001 /* StdoutView.swift */,
+				BB000042000000000000001 /* EnvToggleView.swift */,
+				BB000043000000000000001 /* SettingsView.swift */,
+			);
+			name = Views;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		EE000006000000000000001 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				BB000044000000000000001 /* SMCHelper.swift */,
+				BB000045000000000000001 /* MediaRemoteBridge.swift */,
+				BB000046000000000000001 /* IOKitHelper.swift */,
+				BB000047000000000000001 /* Extensions.swift */,
+			);
+			name = Helpers;
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		EE000007000000000000001 /* CLI */ = {
+			isa = PBXGroup;
+			children = (
+				EE000008000000000000001 /* island-notify */,
+			);
+			name = CLI;
+			path = CLI;
+			sourceTree = "<group>";
+		};
+		EE000008000000000000001 /* island-notify */ = {
+			isa = PBXGroup;
+			children = (
+				BB000049000000000000001 /* main.swift */,
+			);
+			name = "island-notify";
+			path = "island-notify";
+			sourceTree = "<group>";
+		};
+		EE000010000000000000001 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CC000001000000000000001 /* Islet.app */,
+				CC000002000000000000001 /* island-notify */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FF000001000000000000001 /* Islet */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FF000010000000000000001 /* Build configuration list for PBXNativeTarget "Islet" */;
+			buildPhases = (
+				FF000003000000000000001 /* Sources */,
+				DD000001000000000000001 /* Frameworks */,
+				FF000005000000000000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Islet;
+			productName = Islet;
+			productReference = CC000001000000000000001 /* Islet.app */;
+			productType = "com.apple.product-type.application";
+		};
+		FF000002000000000000001 /* island-notify */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FF000011000000000000001 /* Build configuration list for PBXNativeTarget "island-notify" */;
+			buildPhases = (
+				FF000004000000000000001 /* Sources */,
+				DD000002000000000000001 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "island-notify";
+			productName = "island-notify";
+			productReference = CC000002000000000000001 /* island-notify */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FF000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				ORGANIZATIONNAME = "";
+				TargetAttributes = {
+					FF000001000000000000001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					FF000002000000000000001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = FF000012000000000000001 /* Build configuration list for PBXProject "Islet" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EE000001000000000000001;
+			productRefGroup = EE000010000000000000001 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FF000001000000000000001 /* Islet */,
+				FF000002000000000000001 /* island-notify */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FF000005000000000000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA000048000000000000001 /* Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FF000003000000000000001 /* Sources (Islet) */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA000001000000000000001 /* IsletApp.swift in Sources */,
+				AA000002000000000000001 /* IslandWindowController.swift in Sources */,
+				AA000003000000000000001 /* IslandViewModel.swift in Sources */,
+				AA000004000000000000001 /* IslandMode.swift in Sources */,
+				AA000005000000000000001 /* ClipboardItem.swift in Sources */,
+				AA000006000000000000001 /* SystemConfig.swift in Sources */,
+				AA000007000000000000001 /* NowPlayingMonitor.swift in Sources */,
+				AA000008000000000000001 /* VolumeMonitor.swift in Sources */,
+				AA000009000000000000001 /* WeatherMonitor.swift in Sources */,
+				AA000010000000000000001 /* NotificationMonitor.swift in Sources */,
+				AA000011000000000000001 /* SystemStatsMonitor.swift in Sources */,
+				AA000012000000000000001 /* ANEMonitor.swift in Sources */,
+				AA000013000000000000001 /* NetworkMonitor.swift in Sources */,
+				AA000014000000000000001 /* BatteryMonitor.swift in Sources */,
+				AA000015000000000000001 /* ClipboardMonitor.swift in Sources */,
+				AA000016000000000000001 /* TrashMonitor.swift in Sources */,
+				AA000017000000000000001 /* AppUsageMonitor.swift in Sources */,
+				AA000018000000000000001 /* AVSessionMonitor.swift in Sources */,
+				AA000019000000000000001 /* FFTMonitor.swift in Sources */,
+				AA000020000000000000001 /* AirDropMonitor.swift in Sources */,
+				AA000021000000000000001 /* BuildMonitor.swift in Sources */,
+				AA000022000000000000001 /* EnvConfigMonitor.swift in Sources */,
+				AA000023000000000000001 /* IslandView.swift in Sources */,
+				AA000024000000000000001 /* CollapsedView.swift in Sources */,
+				AA000025000000000000001 /* NowPlayingView.swift in Sources */,
+				AA000026000000000000001 /* VolumeView.swift in Sources */,
+				AA000027000000000000001 /* WeatherView.swift in Sources */,
+				AA000028000000000000001 /* NotificationView.swift in Sources */,
+				AA000029000000000000001 /* SystemStatsView.swift in Sources */,
+				AA000030000000000000001 /* ANEView.swift in Sources */,
+				AA000031000000000000001 /* NetworkView.swift in Sources */,
+				AA000032000000000000001 /* BatteryView.swift in Sources */,
+				AA000033000000000000001 /* ClipboardView.swift in Sources */,
+				AA000034000000000000001 /* TrashRecoveryView.swift in Sources */,
+				AA000035000000000000001 /* ColorSamplerView.swift in Sources */,
+				AA000036000000000000001 /* AppSwitcherView.swift in Sources */,
+				AA000037000000000000001 /* AVConferenceView.swift in Sources */,
+				AA000038000000000000001 /* FFTView.swift in Sources */,
+				AA000039000000000000001 /* AirDropView.swift in Sources */,
+				AA000040000000000000001 /* BuildStatusView.swift in Sources */,
+				AA000041000000000000001 /* StdoutView.swift in Sources */,
+				AA000042000000000000001 /* EnvToggleView.swift in Sources */,
+				AA000043000000000000001 /* SettingsView.swift in Sources */,
+				AA000044000000000000001 /* SMCHelper.swift in Sources */,
+				AA000045000000000000001 /* MediaRemoteBridge.swift in Sources */,
+				AA000046000000000000001 /* IOKitHelper.swift in Sources */,
+				AA000047000000000000001 /* Extensions.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FF000004000000000000001 /* Sources (island-notify) */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA000049000000000000001 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		GG000001000000000000001 /* Debug (Islet) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
+				CODE_SIGN_ENTITLEMENTS = Islet/Islet.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = Islet/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = (
+					"-framework",
+					IOKit,
+					"-framework",
+					CoreAudio,
+					"-framework",
+					AVFoundation,
+					"-framework",
+					CoreLocation,
+					"-framework",
+					Accelerate,
+					"-framework",
+					UserNotifications,
+					"-framework",
+					AppKit,
+					"-framework",
+					CoreMediaIO,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.islet.app;
+				PRODUCT_NAME = Islet;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+				VALID_ARCHS = "arm64 x86_64";
+			};
+			name = Debug;
+		};
+		GG000002000000000000001 /* Release (Islet) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
+				CODE_SIGN_ENTITLEMENTS = Islet/Islet.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_HARDENED_RUNTIME = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "";
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = Islet/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = (
+					"-framework",
+					IOKit,
+					"-framework",
+					CoreAudio,
+					"-framework",
+					AVFoundation,
+					"-framework",
+					CoreLocation,
+					"-framework",
+					Accelerate,
+					"-framework",
+					UserNotifications,
+					"-framework",
+					AppKit,
+					"-framework",
+					CoreMediaIO,
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.islet.app;
+				PRODUCT_NAME = Islet;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 x86_64";
+			};
+			name = Release;
+		};
+		GG000003000000000000001 /* Debug (island-notify) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.islet.island-notify;
+				PRODUCT_NAME = "island-notify";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.9;
+				VALID_ARCHS = "arm64 x86_64";
+			};
+			name = Debug;
+		};
+		GG000004000000000000001 /* Release (island-notify) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.islet.island-notify;
+				PRODUCT_NAME = "island-notify";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.9;
+				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "arm64 x86_64";
+			};
+			name = Release;
+		};
+		GG000005000000000000001 /* Debug (project) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		GG000006000000000000001 /* Release (project) */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 12.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FF000010000000000000001 /* Build configuration list for PBXNativeTarget "Islet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				GG000001000000000000001 /* Debug */,
+				GG000002000000000000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FF000011000000000000001 /* Build configuration list for PBXNativeTarget "island-notify" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				GG000003000000000000001 /* Debug */,
+				GG000004000000000000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FF000012000000000000001 /* Build configuration list for PBXProject "Islet" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				GG000005000000000000001 /* Debug */,
+				GG000006000000000000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = FF000000000000000000001 /* Project object */;
+}
