@@ -50,27 +50,6 @@ enum IslandMode: Equatable {
         }
     }
 
-    // How many points the panel should extend BELOW the notch bottom edge.
-    // 0 = only the menu-bar lobe area is used (compact lobe mode).
-    var expansionHeight: CGFloat {
-        switch self {
-        case .collapsed:    return 0
-        case .volume:       return 56
-        case .nowPlaying:   return 90
-        case .notification: return 80
-        case .systemStats:  return 90
-        case .weather:      return 72
-        case .network:      return 90
-        case .clipboard:    return 200
-        case .fileRecovery: return 70
-        case .colorSampler: return 72
-        case .avConference: return 72
-        case .buildStatus:  return 80
-        case .stdout:       return 80
-        case .airDrop:      return 72
-        }
-    }
-
     static func == (lhs: IslandMode, rhs: IslandMode) -> Bool {
         switch (lhs, rhs) {
         case (.avConference, .avConference): return true

@@ -2,12 +2,9 @@ import AppKit
 import SwiftUI
 import Combine
 
-// Notch geometry measured once at startup and on screen changes.
-struct NotchGeometry {
+struct NotchGeometry: Equatable {
     let screenFrame: NSRect
-    // The physical notch rectangle in screen coordinates (origin at bottom-left of screen).
-    let notchRect: NSRect
-    // Menu bar height (height of the area beside the notch).
+    let notchRect: NSRect      // screen coords: x range of notch, full menu-bar height
     let menuBarHeight: CGFloat
 
     static var current: NotchGeometry {
@@ -23,48 +20,31 @@ struct NotchGeometry {
 
     init(screen: NSScreen) {
         self.screenFrame = screen.frame
-        let safe = screen.safeAreaInsets.top   // menu bar + notch height on notched Macs
-
         if let left = screen.auxiliaryTopLeftArea,
            let right = screen.auxiliaryTopRightArea {
-            // Notched Mac: auxiliaryTopLeftArea/RightArea bound the notch exactly.
-            let notchLeft  = left.maxX
-            let notchRight = right.minX
-            let notchBottom = left.minY          // bottom of menu bar stripe
-            let notchTop    = screen.frame.maxY  // physical top of screen
-
             self.menuBarHeight = left.height
             self.notchRect = NSRect(
-                x: notchLeft,
-                y: notchBottom,
-                width: notchRight - notchLeft,
-                height: notchTop - notchBottom
+                x: left.maxX, y: left.minY,
+                width: right.minX - left.maxX,
+                height: screen.frame.maxY - left.minY
             )
         } else {
-            // No notch: treat the whole menu bar as the notch zone with zero width.
-            let barH = safe > 0 ? safe : 32
+            let barH = max(screen.safeAreaInsets.top, 32)
             self.menuBarHeight = barH
-            // Zero-width notch in the centre so layouts still work.
             self.notchRect = NSRect(
-                x: screen.frame.midX,
-                y: screen.frame.maxY - barH,
-                width: 0,
-                height: barH
+                x: screen.frame.midX, y: screen.frame.maxY - barH,
+                width: 0, height: barH
             )
         }
     }
 
     init(screenFrame: NSRect, notchRect: NSRect, menuBarHeight: CGFloat) {
-        self.screenFrame = screenFrame
-        self.notchRect = notchRect
-        self.menuBarHeight = menuBarHeight
+        self.screenFrame = screenFrame; self.notchRect = notchRect; self.menuBarHeight = menuBarHeight
     }
 
-    // Notch centre in screen coordinates
-    var notchCenterX: CGFloat { notchRect.midX }
-    // Bottom edge of notch (== bottom of menu bar on notched Macs)
-    var notchBottomY: CGFloat { notchRect.minY }
-    // Half-width of the physical notch pill
+    var notchCenterX: CGFloat   { notchRect.midX }
+    var notchBottomY: CGFloat   { notchRect.minY }
+    var notchWidth: CGFloat     { notchRect.width }
     var notchHalfWidth: CGFloat { notchRect.width / 2 }
 }
 
@@ -74,9 +54,7 @@ final class IslandWindowController: NSObject {
     private var hostingView: NSHostingView<NotchIslandView>!
     private let viewModel: IslandViewModel
     private var cancellables = Set<AnyCancellable>()
-
-    // Notch geometry — refreshed on screen change
-    private(set) var notchGeometry: NotchGeometry = .current
+    private var geo: NotchGeometry = .current
 
     init(viewModel: IslandViewModel) {
         self.viewModel = viewModel
@@ -86,15 +64,14 @@ final class IslandWindowController: NSObject {
         subscribeToScreenChanges()
     }
 
-    // MARK: - Panel Setup
+    // MARK: - Panel setup
 
     private func setupPanel() {
-        let geo = notchGeometry
-        // The panel covers the full notch zone + some downward expansion space
-        let panelFrame = frameForExpansion(height: 0)
+        geo = .current
+        let frame = panelFrame()
 
         panel = NSPanel(
-            contentRect: panelFrame,
+            contentRect: frame,
             styleMask: [.borderless, .nonactivatingPanel],
             backing: .buffered,
             defer: false
@@ -110,87 +87,58 @@ final class IslandWindowController: NSObject {
 
         let rootView = NotchIslandView(viewModel: viewModel, geometry: geo)
         hostingView = NSHostingView(rootView: rootView)
-        hostingView.frame = CGRect(origin: .zero, size: panelFrame.size)
+        hostingView.frame = CGRect(origin: .zero, size: frame.size)
         hostingView.autoresizingMask = [.width, .height]
         panel.contentView = hostingView
 
         panel.orderOut(nil)
-        _ = geo  // suppress unused warning
     }
 
-    // MARK: - Mode subscription
+    // Panel is always exactly the menu bar strip: full width, menuBarHeight tall, top of screen.
+    // It never changes size — only shows/hides.
+    private func panelFrame() -> NSRect {
+        return NSRect(
+            x: geo.screenFrame.minX,
+            y: geo.screenFrame.maxY - geo.menuBarHeight,
+            width: geo.screenFrame.width,
+            height: geo.menuBarHeight
+        )
+    }
+
+    // MARK: - Mode changes
 
     private func subscribeToModeChanges() {
         viewModel.$currentMode
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] mode in
-                self?.handleModeChange(mode)
-            }
+            .sink { [weak self] mode in self?.handleModeChange(mode) }
             .store(in: &cancellables)
     }
 
     private func handleModeChange(_ mode: IslandMode) {
-        let expansionHeight: CGFloat = mode == .collapsed ? 0 : mode.expansionHeight
-        let targetFrame = frameForExpansion(height: expansionHeight)
-
         if mode == .collapsed {
-            NSAnimationContext.runAnimationGroup({ ctx in
-                ctx.duration = 0.3
-                ctx.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-                panel.animator().setFrame(targetFrame, display: true)
-            }, completionHandler: {
-                self.panel.orderOut(nil)
-            })
+            panel.orderOut(nil)
         } else {
             if !panel.isVisible {
-                panel.setFrame(frameForExpansion(height: 0), display: false)
                 panel.orderFrontRegardless()
-            }
-            NSAnimationContext.runAnimationGroup { ctx in
-                ctx.duration = 0.35
-                ctx.timingFunction = CAMediaTimingFunction(name: .easeInEaseOut)
-                ctx.allowsImplicitAnimation = true
-                panel.animator().setFrame(targetFrame, display: true)
             }
         }
     }
 
-    // The panel spans the full notch width + padding on both sides.
-    // Its top edge is always flush with the top of the screen.
-    // expansionHeight = how far below the notch bottom the content extends.
-    private func frameForExpansion(height: CGFloat) -> NSRect {
-        let geo = notchGeometry
-        let padding: CGFloat = 80   // extra space on each side beyond the notch
-        let totalWidth = geo.notchRect.width + padding * 2
-        let totalHeight = geo.menuBarHeight + height
-        let x = geo.notchCenterX - totalWidth / 2
-        let y = geo.screenFrame.maxY - totalHeight
-        return NSRect(x: x, y: y, width: totalWidth, height: totalHeight)
-    }
-
-    // MARK: - Screen change notifications
+    // MARK: - Screen changes
 
     private func subscribeToScreenChanges() {
         NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(screenParametersChanged),
+            self, selector: #selector(screenParametersChanged),
             name: NSApplication.didChangeScreenParametersNotification,
             object: nil
         )
     }
 
     @objc private func screenParametersChanged() {
-        notchGeometry = .current
-        // Rebuild the hosting view with new geometry
-        let rootView = NotchIslandView(viewModel: viewModel, geometry: notchGeometry)
-        hostingView.rootView = rootView
-        guard panel.isVisible else { return }
-        let mode = viewModel.currentMode
-        let h = mode == .collapsed ? 0 : mode.expansionHeight
-        panel.setFrame(frameForExpansion(height: h), display: true)
+        geo = .current
+        hostingView.rootView = NotchIslandView(viewModel: viewModel, geometry: geo)
+        panel.setFrame(panelFrame(), display: true)
     }
 
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
+    deinit { NotificationCenter.default.removeObserver(self) }
 }

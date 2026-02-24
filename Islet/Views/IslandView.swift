@@ -2,12 +2,13 @@ import SwiftUI
 import AppKit
 
 // MARK: - NotchIslandView
-// The panel is a transparent rectangle that spans the notch zone.
-// This view draws content AROUND the notch dead-zone:
-//   • Left lobe  — to the left of the notch, in the menu bar stripe
-//   • Right lobe — to the right of the notch, in the menu bar stripe
-//   • Below zone — drops below the notch for expanded content
-// The notch itself is never drawn over.
+//
+// The panel is full-screen-width × menuBarHeight, sitting at the very top of the screen.
+// It is fully transparent — we draw nothing over the menu bar chrome itself.
+// When a mode is active we draw content only in the two regions beside the notch:
+//   • Left zone:  from panel left edge up to the notch left edge
+//   • Right zone: from the notch right edge to the panel right edge
+// Nothing is drawn below the menu bar.
 
 struct NotchIslandView: View {
     @ObservedObject var viewModel: IslandViewModel
@@ -15,236 +16,189 @@ struct NotchIslandView: View {
 
     var body: some View {
         GeometryReader { proxy in
-            let panelW = proxy.size.width
-            let menuH  = geometry.menuBarHeight
-            // Within the panel coordinate system (origin = bottom-left of panel):
-            // The notch occupies the top menuH, centred horizontally.
-            // notchLeft and notchRight are in panel-local coords.
-            let notchLeft  = (panelW - geometry.notchRect.width) / 2
-            let notchRight = notchLeft + geometry.notchRect.width
+            let panelW  = proxy.size.width
+            let panelH  = proxy.size.height  // == menuBarHeight
+
+            // Notch edges in panel-local x coordinates
+            // (panel starts at screenFrame.minX which is 0 on a single-screen Mac)
+            let notchL = geometry.notchRect.minX - geometry.screenFrame.minX
+            let notchR = geometry.notchRect.maxX - geometry.screenFrame.minX
+
+            // Available widths beside the notch
+            let leftW  = notchL         // full width to the left of the notch
+            let rightW = panelW - notchR // full width to the right of the notch
 
             ZStack(alignment: .topLeading) {
-                // ── Left lobe (sits left of notch in menu bar row) ──────────
-                LeftLobeView(viewModel: viewModel, geometry: geometry)
-                    .frame(width: notchLeft, height: menuH)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                // Left content zone — right-aligned content hugging the notch
+                if viewModel.currentMode != .collapsed && leftW > 0 {
+                    LeftContent(viewModel: viewModel)
+                        .frame(width: leftW, height: panelH)
+                        .offset(x: 0, y: 0)
+                }
 
-                // ── Right lobe (sits right of notch in menu bar row) ─────────
-                RightLobeView(viewModel: viewModel, geometry: geometry)
-                    .frame(width: panelW - notchRight, height: menuH)
-                    .offset(x: notchRight, y: 0)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-
-                // ── Below-notch expansion (drops below the menu bar row) ─────
-                if viewModel.currentMode != .collapsed {
-                    BelowNotchView(viewModel: viewModel)
-                        .frame(width: panelW, height: proxy.size.height - menuH)
-                        .offset(x: 0, y: menuH)
-                        .transition(.move(edge: .top).combined(with: .opacity))
+                // Right content zone — left-aligned content hugging the notch
+                if viewModel.currentMode != .collapsed && rightW > 0 {
+                    RightContent(viewModel: viewModel)
+                        .frame(width: rightW, height: panelH)
+                        .offset(x: notchR, y: 0)
                 }
             }
-            .frame(width: panelW, height: proxy.size.height, alignment: .topLeading)
+            .frame(width: panelW, height: panelH)
         }
-        .animation(.spring(response: 0.4, dampingFraction: 0.75), value: viewModel.currentMode)
+        .animation(.easeInOut(duration: 0.2), value: viewModel.currentMode)
     }
 }
 
-// MARK: - Left Lobe
-// Shows compact, left-biased info (album art, camera dot, etc.)
-struct LeftLobeView: View {
+// MARK: - Left content (right-aligned, hugging the notch left edge)
+
+struct LeftContent: View {
     @ObservedObject var viewModel: IslandViewModel
-    let geometry: NotchGeometry
 
     var body: some View {
         HStack(spacing: 0) {
-            Spacer()
+            Spacer(minLength: 0)
             content
                 .padding(.trailing, 10)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(maxHeight: .infinity)
     }
 
     @ViewBuilder
     private var content: some View {
         switch viewModel.currentMode {
         case .nowPlaying:
-            NowPlayingLobeView(viewModel: viewModel, side: .left)
-        case .avConference:
-            AVConferenceLobe(viewModel: viewModel, side: .left)
-        case .volume:
-            VolumeLobeView(viewModel: viewModel)
-        case .buildStatus:
-            BuildStatusLobe(viewModel: viewModel, side: .left)
-        default:
-            EmptyView()
-        }
-    }
-}
-
-// MARK: - Right Lobe
-// Shows compact, right-biased info (time, battery, playback controls, etc.)
-struct RightLobeView: View {
-    @ObservedObject var viewModel: IslandViewModel
-    let geometry: NotchGeometry
-
-    var body: some View {
-        HStack(spacing: 0) {
-            content
-                .padding(.leading, 10)
-            Spacer()
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-    }
-
-    @ViewBuilder
-    private var content: some View {
-        switch viewModel.currentMode {
-        case .nowPlaying:
-            NowPlayingLobeView(viewModel: viewModel, side: .right)
-        case .avConference:
-            AVConferenceLobe(viewModel: viewModel, side: .right)
-        case .volume:
-            // Right lobe unused for volume — volume bar is in the below zone
-            EmptyView()
-        case .buildStatus:
-            BuildStatusLobe(viewModel: viewModel, side: .right)
-        default:
-            EmptyView()
-        }
-    }
-}
-
-// MARK: - Below-notch expansion
-// This is the "dropped pill" that appears below the menu bar and contains rich content.
-struct BelowNotchView: View {
-    @ObservedObject var viewModel: IslandViewModel
-
-    var body: some View {
-        VStack {
-            // The pill drops from the centre, hugging below the notch
-            expandedContent
-                .padding(.horizontal, 16)
-                .padding(.vertical, 10)
-                .background(
-                    RoundedRectangle(cornerRadius: 18, style: .continuous)
-                        .fill(Color.black)
-                )
-                // Attach to top edge, centred
-                .frame(maxWidth: .infinity, alignment: .top)
-                .padding(.top, 2)
-
-            Spacer()
-        }
-        .padding(.horizontal, 40) // keep it narrower than the panel
-    }
-
-    @ViewBuilder
-    private var expandedContent: some View {
-        switch viewModel.currentMode {
-        case .nowPlaying:
-            NowPlayingView(viewModel: viewModel)
-        case .volume:
-            VolumeView(viewModel: viewModel)
-        case .weather:
-            WeatherView(viewModel: viewModel)
-        case .notification(let title, let body, let appName, let icon):
-            NotificationView(title: title, notificationBody: body, appName: appName, appIcon: icon)
-        case .systemStats:
-            SystemStatsView(viewModel: viewModel)
-        case .network:
-            NetworkView(viewModel: viewModel)
-        case .clipboard:
-            ClipboardView(viewModel: viewModel)
-        case .fileRecovery(let name, let trashURL, let origURL):
-            TrashRecoveryView(fileName: name, trashURL: trashURL, originalURL: origURL, viewModel: viewModel)
-        case .colorSampler(let color):
-            ColorSamplerView(color: color)
-        case .avConference:
-            AVConferenceView(viewModel: viewModel)
-        case .buildStatus:
-            BuildStatusView(viewModel: viewModel)
-        case .stdout:
-            StdoutView(viewModel: viewModel)
-        case .airDrop(let name):
-            AirDropView(fileName: name)
-        case .collapsed:
-            EmptyView()
-        }
-    }
-}
-
-// MARK: - Lobe content components
-
-enum LobeSide { case left, right }
-
-struct NowPlayingLobeView: View {
-    @ObservedObject var viewModel: IslandViewModel
-    let side: LobeSide
-
-    var body: some View {
-        if side == .left {
-            // Album art thumbnail
-            Group {
+            HStack(spacing: 6) {
                 if let art = viewModel.nowPlayingArt {
                     Image(nsImage: art)
-                        .resizable()
-                        .scaledToFill()
-                        .frame(width: 22, height: 22)
-                        .clipShape(RoundedRectangle(cornerRadius: 4))
+                        .resizable().scaledToFill()
+                        .frame(width: 18, height: 18)
+                        .clipShape(RoundedRectangle(cornerRadius: 3))
                 } else {
                     Image(systemName: "music.note")
-                        .font(.system(size: 12))
+                        .font(.system(size: 10))
                         .foregroundColor(.white)
-                        .frame(width: 22, height: 22)
+                }
+                VStack(alignment: .leading, spacing: 1) {
+                    Text(viewModel.nowPlayingTrack)
+                        .font(.system(size: 10, weight: .semibold))
+                        .foregroundColor(.white)
+                        .lineLimit(1)
+                    Text(viewModel.nowPlayingArtist)
+                        .font(.system(size: 9))
+                        .foregroundColor(Color(white: 0.6))
+                        .lineLimit(1)
                 }
             }
-        } else {
-            // Playback state indicator
-            Image(systemName: viewModel.nowPlayingIsPlaying ? "pause.fill" : "play.fill")
-                .font(.system(size: 11))
-                .foregroundColor(Color(white: 0.75))
-        }
-    }
-}
 
-struct AVConferenceLobe: View {
-    @ObservedObject var viewModel: IslandViewModel
-    let side: LobeSide
-
-    var body: some View {
-        if side == .left {
-            // Camera dot
-            if viewModel.cameraActive {
-                Circle()
-                    .fill(Color.green)
-                    .frame(width: 8, height: 8)
+        case .volume:
+            HStack(spacing: 5) {
+                Image(systemName: viewModel.volumeIsMuted ? "speaker.slash.fill" : speakerIcon)
+                    .font(.system(size: 11))
+                    .foregroundColor(viewModel.volumeIsMuted ? .red : .white)
+                // Volume bar
+                GeometryReader { g in
+                    ZStack(alignment: .leading) {
+                        Capsule().fill(Color(white: 0.3)).frame(height: 3)
+                        Capsule()
+                            .fill(viewModel.volumeIsMuted ? Color.red : Color.white)
+                            .frame(width: g.size.width * CGFloat(viewModel.volumeIsMuted ? 0 : viewModel.volumeLevel), height: 3)
+                    }
+                }
+                .frame(width: 60, height: 3)
+                Text(viewModel.volumeIsMuted ? "—" : "\(Int(viewModel.volumeLevel * 100))%")
+                    .font(.system(size: 10, weight: .medium, design: .rounded))
+                    .foregroundColor(Color(white: 0.85))
+                    .frame(width: 28, alignment: .trailing)
             }
-        } else {
-            // Mic indicator
-            if viewModel.micActive {
-                Image(systemName: viewModel.micActive ? "mic.fill" : "mic.slash.fill")
+
+        case .avConference:
+            HStack(spacing: 4) {
+                if viewModel.cameraActive {
+                    Circle().fill(Color.green).frame(width: 7, height: 7)
+                    Text("Camera")
+                        .font(.system(size: 10))
+                        .foregroundColor(.white)
+                }
+            }
+
+        case .notification(let title, _, let appName, _):
+            HStack(spacing: 5) {
+                Image(systemName: "bell.fill")
+                    .font(.system(size: 10))
+                    .foregroundColor(.white)
+                VStack(alignment: .leading, spacing: 0) {
+                    Text(appName.isEmpty ? "Notification" : appName)
+                        .font(.system(size: 9))
+                        .foregroundColor(Color(white: 0.6))
+                    Text(title)
+                        .font(.system(size: 10, weight: .semibold))
+                        .foregroundColor(.white)
+                        .lineLimit(1)
+                }
+            }
+
+        case .buildStatus:
+            HStack(spacing: 5) {
+                if viewModel.buildIsRunning {
+                    ProgressView().scaleEffect(0.45).frame(width: 12, height: 12).colorScheme(.dark)
+                    Text("Building…")
+                        .font(.system(size: 10))
+                        .foregroundColor(Color(white: 0.8))
+                } else if let ok = viewModel.buildSuccess {
+                    Image(systemName: ok ? "checkmark.circle.fill" : "xmark.circle.fill")
+                        .font(.system(size: 11))
+                        .foregroundColor(ok ? .green : .red)
+                    Text(ok ? "Build succeeded" : "Build failed")
+                        .font(.system(size: 10))
+                        .foregroundColor(Color(white: 0.85))
+                }
+            }
+
+        case .weather:
+            HStack(spacing: 5) {
+                Image(systemName: viewModel.weatherSymbol)
                     .font(.system(size: 11))
                     .foregroundColor(.white)
+                Text("\(Int(viewModel.weatherTemp))°")
+                    .font(.system(size: 11, weight: .medium))
+                    .foregroundColor(.white)
+                Text(viewModel.weatherCondition)
+                    .font(.system(size: 10))
+                    .foregroundColor(Color(white: 0.7))
+                    .lineLimit(1)
             }
+
+        case .network:
+            HStack(spacing: 6) {
+                Label(viewModel.networkDownBPS.bwString, systemImage: "arrow.down")
+                    .font(.system(size: 10))
+                    .foregroundColor(.white)
+            }
+
+        case .airDrop(let name):
+            HStack(spacing: 5) {
+                Image(systemName: "arrow.down.to.line")
+                    .font(.system(size: 10))
+                    .foregroundColor(.white)
+                Text(name)
+                    .font(.system(size: 10))
+                    .foregroundColor(.white)
+                    .lineLimit(1)
+            }
+
+        case .systemStats:
+            HStack(spacing: 6) {
+                Text("CPU \(Int(viewModel.cpuUsage * 100))%")
+                    .font(.system(size: 10, design: .monospaced))
+                    .foregroundColor(.white)
+            }
+
+        default:
+            EmptyView()
         }
     }
-}
 
-struct VolumeLobeView: View {
-    @ObservedObject var viewModel: IslandViewModel
-
-    var body: some View {
-        HStack(spacing: 4) {
-            Image(systemName: viewModel.volumeIsMuted ? "speaker.slash.fill" : speakerSymbol)
-                .font(.system(size: 11))
-                .foregroundColor(viewModel.volumeIsMuted ? .red : .white)
-            Text(viewModel.volumeIsMuted ? "Muted" : "\(Int(viewModel.volumeLevel * 100))%")
-                .font(.system(size: 10, weight: .medium, design: .rounded))
-                .foregroundColor(Color(white: 0.85))
-        }
-    }
-
-    private var speakerSymbol: String {
+    private var speakerIcon: String {
         if viewModel.volumeLevel == 0 { return "speaker.fill" }
         if viewModel.volumeLevel < 0.33 { return "speaker.wave.1.fill" }
         if viewModel.volumeLevel < 0.66 { return "speaker.wave.2.fill" }
@@ -252,33 +206,96 @@ struct VolumeLobeView: View {
     }
 }
 
-struct BuildStatusLobe: View {
+// MARK: - Right content (left-aligned, hugging the notch right edge)
+
+struct RightContent: View {
     @ObservedObject var viewModel: IslandViewModel
-    let side: LobeSide
 
     var body: some View {
-        if side == .left {
-            if viewModel.buildIsRunning {
-                // Spinning indicator
-                ProgressView()
-                    .scaleEffect(0.5)
-                    .frame(width: 16, height: 16)
-                    .colorScheme(.dark)
-            } else if let success = viewModel.buildSuccess {
-                Image(systemName: success ? "checkmark.circle.fill" : "xmark.circle.fill")
-                    .font(.system(size: 13))
-                    .foregroundColor(success ? .green : .red)
-            }
-        } else {
-            if viewModel.buildErrorCount > 0 {
-                Text("\(viewModel.buildErrorCount)E")
-                    .font(.system(size: 9, weight: .bold, design: .monospaced))
-                    .foregroundColor(.red)
-            } else if viewModel.buildWarningCount > 0 {
-                Text("\(viewModel.buildWarningCount)W")
-                    .font(.system(size: 9, weight: .bold, design: .monospaced))
-                    .foregroundColor(.yellow)
-            }
+        HStack(spacing: 0) {
+            content
+                .padding(.leading, 10)
+            Spacer(minLength: 0)
         }
+        .frame(maxHeight: .infinity)
+    }
+
+    @ViewBuilder
+    private var content: some View {
+        switch viewModel.currentMode {
+        case .nowPlaying:
+            HStack(spacing: 8) {
+                Button(action: { viewModel.skipPrevious() }) {
+                    Image(systemName: "backward.fill").font(.system(size: 10))
+                }.buttonStyle(.plain).foregroundColor(Color(white: 0.7))
+
+                Button(action: { viewModel.togglePlayPause() }) {
+                    Image(systemName: viewModel.nowPlayingIsPlaying ? "pause.fill" : "play.fill")
+                        .font(.system(size: 11))
+                }.buttonStyle(.plain).foregroundColor(.white)
+
+                Button(action: { viewModel.skipNext() }) {
+                    Image(systemName: "forward.fill").font(.system(size: 10))
+                }.buttonStyle(.plain).foregroundColor(Color(white: 0.7))
+            }
+
+        case .volume:
+            EmptyView() // volume bar is already in the left zone
+
+        case .avConference:
+            HStack(spacing: 5) {
+                if viewModel.micActive {
+                    Image(systemName: "mic.fill")
+                        .font(.system(size: 10))
+                        .foregroundColor(.white)
+                    Text("Mic on")
+                        .font(.system(size: 10))
+                        .foregroundColor(.white)
+                }
+            }
+
+        case .notification(_, let body, _, _):
+            Text(body)
+                .font(.system(size: 10))
+                .foregroundColor(Color(white: 0.7))
+                .lineLimit(1)
+
+        case .buildStatus:
+            HStack(spacing: 4) {
+                if viewModel.buildErrorCount > 0 {
+                    Text("\(viewModel.buildErrorCount)E")
+                        .font(.system(size: 9, weight: .bold, design: .monospaced))
+                        .foregroundColor(.red)
+                }
+                if viewModel.buildWarningCount > 0 {
+                    Text("\(viewModel.buildWarningCount)W")
+                        .font(.system(size: 9, weight: .bold, design: .monospaced))
+                        .foregroundColor(.yellow)
+                }
+            }
+
+        case .network:
+            Label(viewModel.networkUpBPS.bwString, systemImage: "arrow.up")
+                .font(.system(size: 10))
+                .foregroundColor(Color(white: 0.7))
+
+        case .systemStats:
+            Text("GPU \(Int(viewModel.gpuUsage * 100))%")
+                .font(.system(size: 10, design: .monospaced))
+                .foregroundColor(Color(white: 0.7))
+
+        default:
+            EmptyView()
+        }
+    }
+}
+
+// MARK: - Helpers
+
+private extension Double {
+    var bwString: String {
+        if self < 1_000 { return "0 B/s" }
+        if self < 1_000_000 { return String(format: "%.0f KB/s", self / 1_000) }
+        return String(format: "%.1f MB/s", self / 1_000_000)
     }
 }
